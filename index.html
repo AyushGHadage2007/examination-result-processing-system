@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examination Result Processing System</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f5fa;
+    color: #1c2b45;
+}
+
+header {
+    background: linear-gradient(120deg, #10233f, #2459a9);
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+}
+
+header h1 {
+    margin: 12px 0;
+    font-size: 30px;
+}
+
+header p {
+    margin: 5px;
+}
+
+nav {
+    background: white;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 8px #0001;
+}
+
+nav a {
+    text-decoration: none;
+    color: #2459a9;
+    font-weight: bold;
+    margin: 0 15px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 25px auto;
+    padding: 0 15px;
+}
+
+.intro, .card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px #0000000c;
+}
+
+.intro {
+    background: linear-gradient(120deg, #e5f1ff, #e5fff8);
+}
+
+h2 {
+    color: #173b70;
+    margin-top: 0;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 12px 0 6px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd6e4;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: 2px solid #b9d7ff;
+    border-color: #2459a9;
+}
+
+button {
+    padding: 12px 16px;
+    margin: 12px 5px 0 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.primary {
+    background: #2459a9;
+    color: white;
+}
+
+.secondary {
+    background: #e7edf6;
+    color: #173b70;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+#message {
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 18px 0;
+}
+
+.stat {
+    background: #eef4fc;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.stat span {
+    display: block;
+    color: #63738b;
+    font-size: 13px;
+}
+
+.stat strong {
+    display: block;
+    margin-top: 5px;
+    color: #173b70;
+    font-size: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 10px 5px;
+    border-bottom: 1px solid #e0e6ef;
+    text-align: left;
+}
+
+.pass {
+    color: green;
+    font-weight: bold;
+}
+
+.fail {
+    color: #c62828;
+    font-weight: bold;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.topic {
+    background: #f3f7fc;
+    padding: 15px;
+    border-radius: 9px;
+}
+
+.topic h3 {
+    color: #2459a9;
+    margin-top: 0;
+}
+
+footer {
+    text-align: center;
+    background: #10233f;
+    color: white;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+@media (max-width: 700px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 450px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media print {
+    header, nav, .intro, #inputCard, #about, footer,
+    .print-button {
+        display: none;
+    }
+
+    body {
+        background: white;
+    }
+
+    .container, .card {
+        box-shadow: none;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .layout {
+        display: block;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <p>ANNASAHEB DANGE COLLEGE OF ENGINEERING AND TECHNOLOGY, ASHTA</p>
+    <h1>Examination Result Processing System</h1>
+    <p>Artificial Intelligence &amp; Data Science Department</p>
+    <p>OOP Micro-Project</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#checkResult">Check Result</a>
+    <a href="#about">About Project</a>
+</nav>
+
+<main class="container" id="home">
+
+    <section class="intro">
+        <h2>Student Result Portal</h2>
+        <p>
+            Enter student details and marks to calculate the total,
+            percentage, grade, and pass/fail status.
+            Each subject is out of 50 marks. The passing mark is 20.
+        </p>
+    </section>
+
+    <div class="layout">
+
+        <section class="card" id="inputCard">
+            <h2>Enter Student Details</h2>
+
+            <form id="resultForm">
+                <label for="studentName">Student Name</label>
+                <input type="text" id="studentName"
+                       placeholder="Enter student name" required>
+
+                <label for="rollNumber">Roll Number</label>
+                <input type="text" id="rollNumber"
+                       placeholder="Enter roll number" required>
+
+                <label for="maths">Maths 3 (out of 50)</label>
+                <input type="number" id="maths"
+                       min="0" max="50" step="1" required>
+
+                <label for="ds">DS (out of 50)</label>
+                <input type="number" id="ds"
+                       min="0" max="50" step="1" required>
+
+                <label for="fai">FAI (out of 50)</label>
+                <input type="number" id="fai"
+                       min="0" max="50" step="1" required>
+
+                <label for="os">OS (out of 50)</label>
+                <input type="number" id="os"
+                       min="0" max="50" step="1" required>
+
+                <button class="primary" type="submit">
+                    Calculate Result
+                </button>
+
+                <button class="secondary" type="button"
+                        onclick="loadSample()">
+                    Try Sample
+                </button>
+
+                <button class="secondary" type="reset">
+                    Clear
+                </button>
+            </form>
+
+            <p id="message" role="status"></p>
+        </section>
+
+        <section class="card" id="checkResult">
+            <h2>Result</h2>
+            <div id="result">
+                <p>Your result will appear here after calculation.</p>
+            </div>
+
+            <button class="secondary print-button"
+                    onclick="window.print()">
+                Print Result
+            </button>
+        </section>
+
+    </div>
+
+    <section class="card" id="about">
+        <h2>About Project</h2>
+
+        <p>
+            The Examination Result Processing System calculates student
+            results and displays them in a clear format. This website
+            uses HTML, CSS, and JavaScript. The related C++ project
+            demonstrates object-oriented programming concepts.
+        </p>
+
+        <div class="about-grid">
+            <div class="topic">
+                <h3>Aim</h3>
+                <p>To simplify examination result calculation.</p>
+            </div>
+
+            <div class="topic">
+                <h3>Benefits</h3>
+                <p>Reduces manual calculations and saves time.</p>
+            </div>
+
+            <div class="topic">
+                <h3>Classes and Objects</h3>
+                <p>Organize student data and result processing in OOP.</p>
+            </div>
+
+            <div class="topic">
+                <h3>Constructor</h3>
+                <p>Initializes an object when it is created.</p>
+            </div>
+
+            <div class="topic">
+                <h3>Inheritance</h3>
+                <p>Allows one class to reuse another class's features.</p>
+            </div>
+
+            <div class="topic">
+                <h3>Function Overloading</h3>
+                <p>Uses the same function name with different parameters.</p>
+            </div>
+
+            <div class="topic">
+                <h3>Grade Calculation</h3>
+                <p>Calculates percentage and assigns a grade.</p>
+            </div>
+
+            <div class="topic">
+                <h3>Pass/Fail Checking</h3>
+                <p>Checks whether the student passes every subject.</p>
+            </div>
+
+            <div class="topic">
+                <h3>Input Validation</h3>
+                <p>Checks that marks are whole numbers between 0 and 50.</p>
+            </div>
+        </div>
+
+        <p>
+            <strong>Technologies:</strong> HTML, CSS, JavaScript and
+            C++ OOP concepts.
+        </p>
+
+        <p>
+            Note: This website calculates results in the browser and
+            does not save student records to a database.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    Examination Result Processing System | AI &amp; DS Department
+</footer>
+
+<script>
+const form = document.getElementById("resultForm");
+
+function getGrade(percentage) {
+    if (percentage >= 75) return "A";
+    if (percentage >= 60) return "B";
+    if (percentage >= 50) return "C";
+    if (percentage >= 40) return "D";
+    return "F";
+}
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, function (char) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[char];
+    });
+}
+
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const name = document.getElementById("studentName").value.trim();
+    const roll = document.getElementById("rollNumber").value.trim();
+
+    const subjects = [
+        { name: "Maths 3", id: "maths" },
+        { name: "DS", id: "ds" },
+        { name: "FAI", id: "fai" },
+        { name: "OS", id: "os" }
+    ];
+
+    const marks = [];
+
+    for (const subject of subjects) {
+        const raw = document.getElementById(subject.id).value;
+        const value = Number(raw);
+
+        if (raw.trim() === "" ||
+            !Number.isInteger(value) ||
+            value < 0 || value > 50) {
+            document.getElementById("message").textContent =
+                "Enter valid whole-number marks from 0 to 50 for " +
+                subject.name + ".";
+            document.getElementById("message").className = "fail";
+            document.getElementById(subject.id).focus();
+            return;
+        }
+
+        marks.push({
+            name: subject.name,
+            marks: value,
+            passed: value >= 20
+        });
+    }
+
+    if (!name || !roll) {
+        document.getElementById("message").textContent =
+            "Enter student name and roll number.";
+        document.getElementById("message").className = "fail";
+        return;
+    }
+
+    const total = marks.reduce(function (sum, subject) {
+        return sum + subject.marks;
+    }, 0);
+
+    const percentage = total / 200 * 100;
+    const failedSubjects = marks.filter(function (subject) {
+        return !subject.passed;
+    });
+
+    const passed = failedSubjects.length === 0;
+    const grade = getGrade(percentage);
+
+    let rows = "";
+
+    marks.forEach(function (subject) {
+        rows += `
+            <tr>
+                <td>${escapeHTML(subject.name)}</td>
+                <td>${subject.marks}/50</td>
+                <td class="${subject.passed ? "pass" : "fail"}">
+                    ${subject.passed ? "Pass" : "Fail"}
+                </td>
+            </tr>
+        `;
+    });
+
+    let failureMessage = passed
+        ? '<p class="pass">Passed in all subjects.</p>'
+        : '<p class="fail">Failed in: ' +
+          failedSubjects.map(function (subject) {
+              return escapeHTML(subject.name);
+          }).join(", ") + '.</p>';
+
+    document.getElementById("result").innerHTML = `
+        <h3>${escapeHTML(name)}</h3>
+        <p><strong>Roll Number:</strong> ${escapeHTML(roll)}</p>
+
+        <div class="stats">
+            <div class="stat">
+                <span>Total Marks</span>
+                <strong>${total}/200</strong>
+            </div>
+            <div class="stat">
+                <span>Percentage</span>
+                <strong>${percentage.toFixed(2)}%</strong>
+            </div>
+            <div class="stat">
+                <span>Grade</span>
+                <strong>${grade}</strong>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+
+        <h3 class="${passed ? "pass" : "fail"}">
+            Overall Result: ${passed ? "PASS" : "FAIL"}
+        </h3>
+
+        ${failureMessage}
+    `;
+
+    document.getElementById("message").textContent =
+        "Result calculated successfully.";
+    document.getElementById("message").className = "pass";
+});
+
+function loadSample() {
+    document.getElementById("studentName").value = "Sample Student";
+    document.getElementById("rollNumber").value = "101";
+    document.getElementById("maths").value = 42;
+    document.getElementById("ds").value = 38;
+    document.getElementById("fai").value = 45;
+    document.getElementById("os").value = 40;
+    document.getElementById("message").textContent =
+        "Sample details entered. Click Calculate Result.";
+    document.getElementById("message").className = "pass";
+}
+
+form.addEventListener("reset", function () {
+    document.getElementById("message").textContent = "";
+    document.getElementById("message").className = "";
+    document.getElementById("result").innerHTML =
+        "<p>Your result will appear here after calculation.</p>";
+});
+</script>
+
+</body>
+</html>
